@@ -13,3 +13,13 @@ docker buildx build \
     --tag muxelmann/amateurfunk \
     .
 ```
+
+## Running
+
+```sh
+docker run \
+    -v /path/to/instance:/code/instance:rw \
+    -e FLASK_SECRET=<SOME_SECRET_FOR_COOKIE_CACHE> \
+    -p 8080:80/tcp
+    muxelmann/amateurfunk
+```
