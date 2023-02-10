@@ -1,0 +1,16 @@
+# Datei: gerfficient-amateurfunk/docker-compose.yml
+version: "3"
+
+services:
+  api:
+    build: .
+    restart: always
+    volumes:
+      - ./instance-data:/code/instance
+    networks:
+      - nginxterminator_default
+      - default
+    environment:
+      - FLASK_SECRET=XXX
+    ports:
+      - 8080:80
