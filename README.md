@@ -1,2 +1,3 @@
-# amateurfunk
-A webserver to learn for the German HAM radio license
+# Amateurfunk
+
+Mit diesem Webserver kann man sich auf die deutsche Amateurfunkprüfung vorbereiten.

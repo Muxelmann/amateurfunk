@@ -1,0 +1,41 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <div class="question">
+        <h1>Hallo, {{ g.registered_user_id }}</h1>
+        <ul class="p-h-1">
+            <li><a href="{{ url_for('auth.logout') }}">Ausloggen</a></li>
+            <li><a href="{{ url_for('question.clear_history') }}">Verlauf löschen</a></li>
+        </ul>
+        <h2 class="p-v-1">Alle Fragen</h2>
+        <ul class="p-h-1">
+            <li><a href="{{ url_for('question.by_topic', level='e', topic='t') }}">Technische Kenntnisse für Klasse E</a></li>
+            <li><a href="{{ url_for('question.by_topic', level='a', topic='t') }}">Technische Kenntnisse für Klasse A</a></li>
+            <li><a href="{{ url_for('question.by_topic', level='e', topic='b') }}">Betriebliche Kenntnisse für Klasse E (und A)</a></li>
+            <li><a href="{{ url_for('question.by_topic', level='e', topic='v') }}">Kenntnisse von Vorschriften für Klasse E (und A)</a></li>
+        </ul>
+        <h2 class="p-v-1">Einzeltraining</h2>
+        <ul class="p-h-1">
+            <li><a href="{{ url_for('question.rand', level='e', topic='t') }}">Technische Kenntnisse für Klasse E</a></li>
+            <li><a href="{{ url_for('question.rand', level='a', topic='t') }}">Technische Kenntnisse für Klasse A</a></li>
+            <li><a href="{{ url_for('question.rand', level='e', topic='b') }}">Betriebliche Kenntnisse für Klasse E (und A)</a></li>
+            <li><a href="{{ url_for('question.rand', level='e', topic='v') }}">Kenntnisse von Vorschriften für Klasse E (und A)</a></li>
+        </ul>
+        {% if g.registered_user_history %}
+            <h2 class="p-v-1">Verlauf</h2>
+            <div class="info">{{ (g.registered_user_statistic * 100) | round }} % richtig</div>
+            <table class="history">
+            {% for r_10 in g.registered_user_history | reverse | batch(10) %}
+                <tr>
+                {% for r in r_10 %}
+                    <td class="{% if r['correct'] %}correct{% else %}wrong{% endif %}">
+                    <a href="{{ url_for('question.single', level=r['level'], topic=r['topic'], id=r['id'], answered=True) }}">
+                    </a>
+                    </td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+{% endblock content %}

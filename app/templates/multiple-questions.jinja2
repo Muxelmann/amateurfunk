@@ -1,0 +1,8 @@
+{% extends 'base.jinja2' %}
+{% from 'macros/question.jinja2' import question %}
+
+{% block content %}
+    {% for data in question_data_list %}
+        {{ question(data) }}
+    {% endfor %}
+{% endblock content %}

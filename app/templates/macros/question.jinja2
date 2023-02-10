@@ -1,0 +1,28 @@
+{% macro question(data, answered) %}
+    <div class="question-data color-{{data.topic}}-{{data.level}}">
+        <div class="info p-1">
+        <span>Frage <b>{{ data.id | upper }}</b> des Teils <em>{{ data.topic_desc }}</em> für <em>{{ data.level_desc }}</em></span>
+        <span><a href="{{ url_for('index') }}">Home</a></span>
+        </div>
+        <div class="question">
+        {% for line in data.question %}
+            <p>{{ line }}</p>
+        {% endfor %}
+        </div>
+        <ol class="answers" {% if not answered %} onclick="answer(this, '{{ url_for('question.answer') }}',
+                        '{{data.level}}',
+                        '{{data.topic}}',
+                        '{{data.id}}');" {% endif %}>
+            {% for answer in data.answers %}
+                {% if answered %}
+                    <li class="answer {% if answer[0] %}correct{% else %}wrong{% endif %}">
+                {% else %}
+                    <li class="answer" {% if answer[0] %}correct{% endif %}>
+                {% endif %}
+                    <span>{{ answer[1] }}</span>
+                </li>
+            {% endfor %}
+                <li class="answer reveal{% if answered %} wrong{% endif %}"><span>Antwort anzeigen</span></li>
+        </ol>
+    </div>
+{% endmacro %}

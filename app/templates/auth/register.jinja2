@@ -1,0 +1,13 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    {% if g.registered_user_id %}
+        <h1>Welcome, {{ g.registered_user_id }}</h1>
+    {% else %}
+    <h1 class="p-v-1">Bitte gib einen Benutzernamen ein</h1>
+    <form class="register" action="{{ url_for('auth.register') }}" method="post">
+        <input type="text" name="user-id" required>
+        <input type="submit">
+    </form>
+    {% endif %}
+{% endblock content %}
