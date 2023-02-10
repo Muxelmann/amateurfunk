@@ -10,4 +10,7 @@ VOLUME [ "/code/instance" ]
 
 EXPOSE 80
 
+# nobody:users on unraid
+USER 99:100
+
 CMD ["gunicorn", "--conf", "src/gunicorn_conf.py", "--bind", "0.0.0.0:80", "src.wsgi:app"]
